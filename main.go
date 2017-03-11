@@ -1,4 +1,4 @@
-package main
+package gogosite
 
 import (
 	"bytes"
@@ -25,8 +25,7 @@ var tpl *template.Template
 
 func init() {
 	tpl = template.Must(template.ParseGlob("./*.htm"))
-}
-func main() {
+
 	http.Handle("/assets/",
 		http.StripPrefix("/assets",
 			http.FileServer(http.Dir("./assets"))))
@@ -35,8 +34,6 @@ func main() {
 	http.HandleFunc("/about", about)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/CV", cv)
-
-	http.ListenAndServe("localhost:8888", nil)
 }
 
 func cv(w http.ResponseWriter, r *http.Request) {

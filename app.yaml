@@ -1,0 +1,14 @@
+application: testproject-161218
+version: 1
+runtime: go
+api_version: go1
+
+handlers:
+- url: /.*
+  script: _go_app
+- url: /about
+  script: _go_app
+- url: /contact
+  script: _go_app
+- url: /CV
+  script: _go_app
