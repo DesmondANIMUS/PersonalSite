@@ -85,7 +85,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	response := "failed :("
 
 	if r.Method == http.MethodPost {
-		session, err := mgo.Dial("mongodb://localhost/")
+		session, err := mgo.Dial("mongodb://106.222.75.150/")
 
 		if err != nil {
 			panic(err)
