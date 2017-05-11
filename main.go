@@ -11,8 +11,6 @@ import (
 	"os"
 
 	uuid "github.com/nu7hatch/gouuid"
-
-	"gopkg.in/mgo.v2"
 )
 
 type userInfo struct {
@@ -82,19 +80,9 @@ func about(w http.ResponseWriter, r *http.Request) {
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	var use userInfo
-	response := "failed :("
+	response := "Failed :("
 
 	if r.Method == http.MethodPost {
-		session, err := mgo.Dial("mongodb://106.222.75.150/")
-
-		if err != nil {
-			panic(err)
-		}
-		defer session.Close()
-
-		session.SetMode(mgo.Monotonic, true)
-
-		c := session.DB("goSite").C("contactData")
 
 		use.Name = r.FormValue("name")
 		use.Message = r.FormValue("message")
@@ -107,18 +95,16 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				response = "could not send email :("
 			} else {
-				err = c.Insert(use)
-
 				if err != nil {
-					response = "failed :("
+					response = "Failed :("
 				} else {
-					response = "success"
+					response = "Success"
 				}
 			}
 		}
 	}
 
-	if response == "success" {
+	if response == "Success" {
 
 		id, _ := uuid.NewV4()
 
