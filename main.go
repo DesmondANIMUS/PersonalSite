@@ -91,7 +91,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 		if use.Name == "" || use.Message == "" || use.Email == "" {
 			response = "not getting data :("
 		} else {
-			err := sendMail("Thank you for writing to us. We will get back to you shortly :)", use.Email)
+			err := sendMail(use.Message, use.Email)
 			if err != nil {
 				response = "could not send email :("
 			} else {
@@ -135,8 +135,8 @@ func sendMail(Body, to string) error {
 	from := "0incognitogaurav0@gmail.com"
 	password := "desmond_ANIMUS12"
 
-	msg := "From: " + from + "\r\n" +
-		"To: " + to + "\r\n" +
+	msg := "From: " + to + "\r\n" +
+		"To: " + from + "\r\n" +
 		"MIME-Version: 1.0" + "\r\n" +
 		"Content-type: text/html" + "\r\n" +
 		"Subject: Reigstration Success" + "\r\n\r\n" +
