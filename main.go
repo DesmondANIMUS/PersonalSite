@@ -11,6 +11,7 @@ import (
 	"os"
 
 	uuid "github.com/nu7hatch/gouuid"
+	"golang.org/x/net/http2"
 )
 
 type userInfo struct {
@@ -27,6 +28,10 @@ func init() {
 	http.Handle("/assets/",
 		http.StripPrefix("/assets",
 			http.FileServer(http.Dir("./assets"))))
+	
+	server := new(http.Server)
+	h2Conf := new(http2.Server)
+	http2.ConfigureServer(server, h2Conf)
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/about", about)
